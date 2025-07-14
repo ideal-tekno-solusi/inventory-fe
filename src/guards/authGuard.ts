@@ -26,14 +26,14 @@ export const authGuard = async (
   const searchParams = {
     response_type: 'code',
     client_id: import.meta.env.VITE_CLIENT_ID,
-    redirect_uri: `${window.location.origin}/oauth-callback`,
+    redirect_url: `${window.location.origin}/oauth-callback`,
     scope: 'profile email',
     state,
     code_challenge: codeChallenge,
     code_challenge_method: 'S256',
   }
   const query = new URLSearchParams(searchParams).toString()
-  const authUrl = import.meta.env.VITE_SSO_URL + '/authorize?' + query
+  const authUrl = import.meta.env.VITE_SSO_URL + '/auth/api/authorize?' + query
 
   sessionStorage.setItem('pkce_code_verifier', codeVerifier)
 
