@@ -13,9 +13,8 @@ const generateCodeChallenge = async (codeVerifier: string) => {
   const digest = await crypto.subtle.digest('SHA-256', data)
   const hashArray = Array.from(new Uint8Array(digest))
   return btoa(String.fromCharCode(...hashArray))
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=+$/, '')
+    .replace(/-/g, '+')
+    .replace(/_/g, '/')
 }
 
 export const usePKCE = async () => {
