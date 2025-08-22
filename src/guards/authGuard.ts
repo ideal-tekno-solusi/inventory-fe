@@ -27,7 +27,7 @@ export const authGuard = async (
     response_type: 'code',
     client_id: import.meta.env.VITE_CLIENT_ID,
     redirect_url: `${window.location.origin}/oauth-callback`,
-    scopes: 'profile email',
+    scope: 'profile email',
     state,
     code_challenge: codeChallenge,
     code_challenge_method: 'S256',
