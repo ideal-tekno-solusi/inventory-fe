@@ -49,7 +49,7 @@ export const authGuard = async (
     code_challenge_method: 'S256',
   }
   const query = new URLSearchParams(searchParams).toString()
-  const authUrl = import.meta.env.VITE_SSO_URL + '/auth/api/authorize?' + query
+  const authUrl = import.meta.env.VITE_SSO_URL + '/api/v1/authorize?' + query
 
   sessionStorage.setItem('pkce_code_verifier', codeVerifier)
 
