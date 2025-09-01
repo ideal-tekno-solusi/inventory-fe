@@ -5,7 +5,7 @@ import type { ApiResponse } from '@/types/ApiResponse'
 import { ERROR_MESSAGES } from '@/constants/errorMessages'
 
 export const getUser = async () => {
-  const endpoint = import.meta.env.VITE_SSO_URL + '/api/user'
+  const endpoint = import.meta.env.VITE_SSO_URL + '/api/v1/user'
 
   const res = await http.get<ApiResponse<User>>(endpoint)
   return res.data
