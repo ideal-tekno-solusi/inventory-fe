@@ -2,7 +2,6 @@ import type { User } from '@/types/UserModel'
 import http from './httpService'
 import { useRouter } from 'vue-router'
 import type { ApiResponse } from '@/types/ApiResponse'
-import type { AxiosError } from 'axios'
 import { ERROR_MESSAGES } from '@/constants/errorMessages'
 
 export const getUser = async () => {
@@ -27,8 +26,9 @@ export const exchangeToken = async (code: string): Promise<ApiResponse> => {
     })
     return res.data
   } catch (err) {
-    const error = err as AxiosError
-    return { success: false, message: ERROR_MESSAGES[error.code as string] }
+    const error = err
+    const errorCode = error as keyof typeof ERROR_MESSAGES
+    return { success: false, message: ERROR_MESSAGES[errorCode] }
   }
 }
 
@@ -39,7 +39,8 @@ export const setSession = async (access_token: string) => {
     const res = await http.post<ApiResponse>(endpoint, { access_token })
     return res.data
   } catch (err) {
-    const error = err as AxiosError
-    return { success: false, message: ERROR_MESSAGES[error.code as string] }
+    const error = err
+    const errorCode = error as keyof typeof ERROR_MESSAGES
+    return { success: false, message: ERROR_MESSAGES[errorCode] }
   }
 }

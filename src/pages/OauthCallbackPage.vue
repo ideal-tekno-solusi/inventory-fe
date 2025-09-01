@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ERROR_CODES } from '@/constants/errorCodes'
 import { ERROR_MESSAGES } from '@/constants/errorMessages'
 import { exchangeToken, setSession } from '@/services/authService'
 import { onMounted, ref } from 'vue'
@@ -16,10 +15,10 @@ const setError = (error: string) => {
 
 onMounted(async () => {
   // compare state from session storage and url query parameter
-  if (state !== sessionState) return setError(ERROR_MESSAGES[ERROR_CODES.STATE_MISMATCH])
+  if (state !== sessionState) return setError(ERROR_MESSAGES.AUTH_STATE_MISMATCH)
 
   // check if code is exist in url query parameter
-  if (!code) return setError(ERROR_MESSAGES[ERROR_CODES.MISSING_CODE])
+  if (!code) return setError(ERROR_MESSAGES.MISSING_CODE)
 
   // exchange code for access token
   const { success: tokenSuccess, message: accessToken } = await exchangeToken(code as string)
