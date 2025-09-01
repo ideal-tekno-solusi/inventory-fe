@@ -1,5 +1,8 @@
 import { usePKCE } from '@/composables/usePKCE'
 import { getUser } from '@/services/authService'
+import type { ApiResponse } from '@/types/ApiResponse'
+import type { User } from '@/types/UserModel'
+import type { AxiosError } from 'axios'
 import type {
   NavigationGuardNext,
   RouteLocationNormalized,
@@ -15,7 +18,20 @@ export const authGuard = async (
 
   if (!requiresAuth) return next()
 
-  const isAuthenticated = !!(await getUser())
+  let userRes: ApiResponse<User> | null = null
+
+  try {
+    userRes = await getUser()
+  } catch (err) {
+    const error = err as AxiosError
+    if (error.status !== 401) {
+      // TODO: set error in pinia to display in splash screen
+      console.log("Authorization server can't be reached. Please contact administrator!")
+    }
+    return next(false)
+  }
+
+  const isAuthenticated = !!userRes
   const state = window.location.href
 
   sessionStorage.setItem('state', state)

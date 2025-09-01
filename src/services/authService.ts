@@ -8,12 +8,8 @@ import { ERROR_MESSAGES } from '@/constants/errorMessages'
 export const getUser = async () => {
   const endpoint = import.meta.env.VITE_SSO_URL + '/api/user'
 
-  try {
-    const res = await http.get<ApiResponse<User>>(endpoint)
-    return res.data.data
-  } catch {
-    return false
-  }
+  const res = await http.get<ApiResponse<User>>(endpoint)
+  return res.data
 }
 
 export const exchangeToken = async (code: string): Promise<ApiResponse> => {
