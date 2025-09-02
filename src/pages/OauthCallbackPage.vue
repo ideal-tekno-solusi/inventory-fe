@@ -20,13 +20,19 @@ onMounted(async () => {
   // check if code is exist in url query parameter
   if (!code) return setError(ERROR_MESSAGES.MISSING_CODE)
 
+  console.log(2)
+
   // exchange code for access token
   const { success: tokenSuccess, message: accessToken } = await exchangeToken(code as string)
   if (!tokenSuccess) return setError(accessToken as string)
 
+  console.log(1)
+
   // send access token to the backend, so it can save access token cookie
   const { success: sessionSuccess, message: errorMessage } = await setSession(accessToken as string)
   if (!sessionSuccess) return setError(errorMessage as string)
+
+  console.log(3)
 
   // redirect to state (last visited url except oauth-callback), if none provided
   // redirect to home page instead
