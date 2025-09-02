@@ -26,7 +26,7 @@ onMounted(async () => {
 
   // redirect to state (last visited url except oauth-callback), if none provided
   // redirect to home page instead
-  router.replace(sessionStorage.getItem('state') ?? { name: 'home' })
+  window.location.href = sessionStorage.getItem('state') || router.resolve({ name: 'home' }).href
 })
 </script>
 
