@@ -13,7 +13,7 @@ export const getUser = async () => {
 
 export const exchangeToken = async (code: string): Promise<ApiResponse> => {
   const origin = window.location.origin
-  const endpoint = import.meta.env.VITE_SSO_URL + '/api/v1/token'
+  const endpoint = import.meta.env.VITE_SSO_URL + '/token'
   const router = useRouter()
   const codeVerifier = sessionStorage.getItem('pkce_code_verifier')
 
