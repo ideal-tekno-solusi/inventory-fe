@@ -11,7 +11,9 @@ export const getUser = async () => {
   return res.data
 }
 
-export const exchangeToken = async (code: string): Promise<ApiResponse> => {
+export const exchangeToken = async (
+  code: string,
+): Promise<{ success: boolean; message?: string }> => {
   const origin = window.location.origin
   const endpoint = import.meta.env.VITE_SSO_URL + '/token'
   const router = useRouter()
@@ -25,20 +27,7 @@ export const exchangeToken = async (code: string): Promise<ApiResponse> => {
       client_id: import.meta.env.VITE_CLIENT_ID,
       code_verifier: codeVerifier,
     })
-    return res.data
-  } catch (err) {
-    const error = err
-    const errorCode = error as keyof typeof ERROR_MESSAGES
-    return { success: false, message: ERROR_MESSAGES[errorCode] }
-  }
-}
-
-export const setSession = async (access_token: string) => {
-  const endpoint = import.meta.env.VITE_API_URL + '/auth/session'
-
-  try {
-    const res = await http.post<ApiResponse>(endpoint, { access_token })
-    return res.data
+    return { success: res.data.isSuccess }
   } catch (err) {
     const error = err
     const errorCode = error as keyof typeof ERROR_MESSAGES

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ERROR_MESSAGES } from '@/constants/errorMessages'
-import { exchangeToken, setSession } from '@/services/authService'
+import { exchangeToken } from '@/services/authService'
 import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
@@ -20,19 +20,9 @@ onMounted(async () => {
   // check if code is exist in url query parameter
   if (!code) return setError(ERROR_MESSAGES.MISSING_CODE)
 
-  console.log(2)
-
   // exchange code for access token
-  const { success: tokenSuccess, message: accessToken } = await exchangeToken(code as string)
-  if (!tokenSuccess) return setError(accessToken as string)
-
-  console.log(1)
-
-  // send access token to the backend, so it can save access token cookie
-  const { success: sessionSuccess, message: errorMessage } = await setSession(accessToken as string)
-  if (!sessionSuccess) return setError(errorMessage as string)
-
-  console.log(3)
+  const { success: tokenSuccess, message: tokenErrorMessage } = await exchangeToken(code as string)
+  if (!tokenSuccess) return setError(tokenErrorMessage as string)
 
   // redirect to state (last visited url except oauth-callback), if none provided
   // redirect to home page instead
