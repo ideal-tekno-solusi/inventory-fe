@@ -11,12 +11,13 @@ import type {
 } from 'vue-router'
 
 const requestLogin = async () => {
-  const state = router.resolve({ name: 'home' }).href
+  const origin = window.location.origin
+  const state = origin + router.resolve({ name: 'home' }).href
   const { codeVerifier, codeChallenge } = await usePKCE()
   const searchParams = {
     response_type: 'code',
     client_id: import.meta.env.VITE_CLIENT_ID,
-    redirect_url: router.resolve({ name: 'oauth-callback' }).href,
+    redirect_uri: origin + router.resolve({ name: 'oauth-callback' }).href,
     scope: 'profile email',
     state,
     code_challenge: codeChallenge,

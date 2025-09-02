@@ -12,6 +12,7 @@ export const getUser = async () => {
 }
 
 export const exchangeToken = async (code: string): Promise<ApiResponse> => {
+  const origin = window.location.origin
   const endpoint = import.meta.env.VITE_SSO_URL + '/api/v1/token'
   const router = useRouter()
   const codeVerifier = sessionStorage.getItem('pkce_code_verifier')
@@ -20,7 +21,7 @@ export const exchangeToken = async (code: string): Promise<ApiResponse> => {
     const res = await http.post<ApiResponse>(endpoint, {
       grant_type: 'authorization_code',
       code,
-      redirect_uri: router.resolve({ name: 'oauth-callback' }).href,
+      redirect_uri: origin + router.resolve({ name: 'oauth-callback' }).href,
       client_id: import.meta.env.VITE_CLIENT_ID,
       code_verifier: codeVerifier,
     })
