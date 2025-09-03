@@ -47,9 +47,9 @@ export const authGuard = async (
     userRes = await getUser()
   } catch (err) {
     const error = err as AxiosError
-    if (error.status === 404) {
+    if (error.status !== 401) {
       // TODO: set error in pinia to display in splash screen
-      alert("Authorization server can't be reached. Please contact administrator!")
+      alert("Authorization server can't be reached. Error: " + error.message)
     }
 
     await requestLogin()
