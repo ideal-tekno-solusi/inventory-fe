@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ERROR_MESSAGES } from '@/constants/errorMessages'
-import { exchangeToken } from '@/services/authService'
+import { exchangeToken } from '@/services/auth.service'
 import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 

@@ -1,16 +1,11 @@
-import { authGuard } from '@/guards/authGuard'
-import HomePage from '@/pages/HomePage.vue'
+import { authGuard } from '@/guards/auth.guard'
+import HomePage from '@/views/HomeView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { authRoutes } from './auth'
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/a',
-      name: 'homea',
-      component: HomePage,
-    },
     {
       path: '',
       meta: { requiresAuth: true },

@@ -1,4 +1,4 @@
-import OauthCallbackPage from '@/pages/OauthCallbackPage.vue'
+import OauthCallbackPage from '@/views/OauthCallbackView.vue'
 
 export const authRoutes = [
   {

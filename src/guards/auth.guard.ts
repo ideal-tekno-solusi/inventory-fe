@@ -1,6 +1,6 @@
 import { usePKCE } from '@/composables/usePKCE'
 import router from '@/routes'
-import { getUser } from '@/services/authService'
+import { getUser } from '@/services/auth.service'
 import type { ApiResponse } from '@/types/ApiResponse'
 import type { User } from '@/types/UserModel'
 import type { AxiosError } from 'axios'

@@ -1,5 +1,5 @@
 import type { User } from '@/types/UserModel'
-import http from './httpService'
+import http from './http.service'
 import { useRouter } from 'vue-router'
 import type { ApiResponse } from '@/types/ApiResponse'
 import { ERROR_MESSAGES } from '@/constants/errorMessages'
