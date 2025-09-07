@@ -7,17 +7,19 @@ interface UserState {
   permissions: string[];
 }
 
+const initialState: UserState = {
+  isLoggedIn: false,
+  claims: {
+    exp: null,
+    iss: null,
+    sub: null,
+  },
+  permissions: [],
+};
+
 export const UserStore = signalStore(
   { providedIn: 'root' },
-  withState<UserState>(() => ({
-    isLoggedIn: false,
-    claims: {
-      exp: null,
-      iss: null,
-      sub: null,
-    },
-    permissions: [],
-  })),
+  withState<UserState>(initialState),
   withMethods((store) => ({
     setUser: (user: JwtClaims) => {
       patchState(store, (state) => ({ ...state, isLoggedIn: true, claims: user }));

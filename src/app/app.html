@@ -1,5 +1,34 @@
-@if (appInit.isInitialized()) {
-  <router-outlet />
-} @else {
-  <div>Ini splash screen ceritanya</div>
-}
+<router-outlet />
+
+<div
+  id="splash"
+  class="absolute inset-0 flex flex-col gap-2 justify-center items-center text-white bg-neutral-800"
+  [class.fade-out]="isInitialized()"
+>
+  <div class="flex flex-col gap-2 items-center">
+    <div class="flex items-center gap-4">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="size-20 opacity-75"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+        <path d="M12 8l4 4-4 4-4-4 4-4z" />
+        <line x1="12" y1="20" x2="12" y2="22" />
+        <line x1="20" y1="12" x2="22" y2="12" />
+        <line x1="2" y1="12" x2="4" y2="12" />
+        <line x1="12" y1="2" x2="12" y2="4" />
+      </svg>
+      <h1 class="text-6xl">IMaS</h1>
+    </div>
+    <p class="text-2xl">Inventory Management System</p>
+    <div
+      class="mt-8 animate-spin border-white rounded-full border-3 border-b-transparent size-6"
+    ></div>
+  </div>
+</div>

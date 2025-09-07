@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Auth } from '@app/core/auth/services/auth';
+import { AppInit } from '@app/core/services/app-init';
 
 @Component({
   selector: 'app-oauth-callback',
@@ -11,7 +12,9 @@ import { Auth } from '@app/core/auth/services/auth';
 })
 export class OauthCallback implements OnInit {
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private readonly auth = inject(Auth);
+  private readonly appInit = inject(AppInit);
 
   protected error = signal('');
 
@@ -31,8 +34,10 @@ export class OauthCallback implements OnInit {
     }
 
     this.auth.exchangeCodeForToken(code).subscribe({
-      next: () => {
-        window.location.href = state || '/';
+      next: async () => {
+        const redirectUrl = state ? new URL(state).pathname : '/';
+        this.appInit.init();
+        this.router.navigateByUrl(redirectUrl);
       },
       error: (err: HttpErrorResponse) => {
         this.error.set(err.message);

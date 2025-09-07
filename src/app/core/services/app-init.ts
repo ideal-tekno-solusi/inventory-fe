@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { Auth } from '../auth/services/auth';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { filter, firstValueFrom } from 'rxjs';
+import { Auth } from '../auth/services/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,10 @@ export class AppInit {
   readonly isInitialized = this.initialized.asReadonly();
 
   constructor() {
-    this.init();
+    const skipUrls = ['/oauth-callback'];
+    if (!skipUrls.includes(window.location.pathname)) {
+      this.init();
+    }
   }
 
   async init() {

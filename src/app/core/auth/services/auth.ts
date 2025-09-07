@@ -28,12 +28,6 @@ export class Auth {
   }
 
   loadUserAndPermissions() {
-    const skipUrls = ['/oauth-callback'];
-
-    if (skipUrls.includes(window.location.pathname)) {
-      return;
-    }
-
     return firstValueFrom(
       this.getUser().pipe(
         catchError((err: HttpErrorResponse) => {
