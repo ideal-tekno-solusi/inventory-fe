@@ -14,9 +14,15 @@ export const routes: Routes = [
         redirectTo: 'dashboard',
       },
       {
+        title: 'Dashboard | IMaS',
         path: 'dashboard',
         loadComponent: () => import('@feature/dashboard/dashboard').then((c) => c.Dashboard),
       },
     ],
+  },
+  {
+    path: '**',
+    title: 'Page Not Found | IMaS',
+    loadComponent: () => import('@feature/error/not-found/not-found').then((c) => c.NotFound),
   },
 ];
