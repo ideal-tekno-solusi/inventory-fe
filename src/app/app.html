@@ -1,1 +1,5 @@
-<router-outlet />
+@if (appInit.isInitialized()) {
+  <router-outlet />
+} @else {
+  <div>Ini splash screen ceritanya</div>
+}

@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { AppInit } from './core/services/app-init';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,5 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.scss',
 })
 export class App {
-  protected something = signal('meong');
-  protected readonly title = signal('inventory-fe');
+  protected readonly appInit = inject(AppInit);
 }
