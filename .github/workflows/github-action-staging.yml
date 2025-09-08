@@ -20,7 +20,7 @@ jobs:
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
           use-cache: 'true'
-          version: 1.66.3
+          version: 1.86.2
 
       - name: SSH into server and deploy
         uses: appleboy/ssh-action@v1.2.0
