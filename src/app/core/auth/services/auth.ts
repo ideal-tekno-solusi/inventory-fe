@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ApiResponse, JwtClaims } from '@app/types/api.type';
 import { environment } from '@env/environment';
-import { catchError, firstValueFrom, map, of, switchMap, tap, throwError, timer } from 'rxjs';
+import { catchError, firstValueFrom, map, of, switchMap, tap } from 'rxjs';
 import { UserStore } from '../store/user.store';
 
 const { clientId, ssoUrl } = environment;
@@ -32,14 +32,11 @@ export class Auth {
       this.getUser().pipe(
         catchError((err: HttpErrorResponse) => {
           if (err.status === 401) {
-            return timer(1000).pipe(
-              tap(() => this.requestLogin()),
-              switchMap(() => throwError(() => err)),
-            );
+            this.requestLogin();
+          } else {
+            alert('ERR10121 ' + err.message);
           }
-
-          alert('ERR10121 ' + err.message);
-          return throwError(() => err);
+          return of(null);
         }),
         switchMap((user: JwtClaims | null) => {
           if (user) {
