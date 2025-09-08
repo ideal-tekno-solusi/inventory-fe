@@ -4,15 +4,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-
-    command: tail -f /dev/null
-
-    cap_add:
-      - NET_ADMIN
-    devices:
-      - /dev/net/tun
-
     ports:
       - 8022:8080
-
     restart: unless-stopped
