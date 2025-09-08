@@ -7,6 +7,7 @@ import { UserStore } from '../store/user.store';
 
 const { clientId, ssoUrl } = environment;
 const origin = window.location.origin;
+const tokenEndpoint = ssoUrl + '/token';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,9 @@ export class Auth {
 
   getUser() {
     const endpoint = ssoUrl + '/user';
-    return this.http.get<ApiResponse<JwtClaims>>(endpoint).pipe(map((res) => res.data || null));
+    return this.http
+      .get<ApiResponse<Omit<JwtClaims, 'iat' | 'exp'> & { iat: string; exp: string }>>(endpoint)
+      .pipe(map((res) => res.data || null));
   }
 
   getPermissions() {
@@ -38,17 +41,19 @@ export class Auth {
           }
           return of(null);
         }),
-        switchMap((user: JwtClaims | null) => {
-          if (user) {
-            this.userStore.setUser(user);
-            return this.getPermissions().pipe(
-              tap((permissions: string[]) => {
-                this.userStore.setPermissions(permissions);
-              }),
-            );
-          }
-          return of([]);
-        }),
+        switchMap(
+          (user: (Omit<JwtClaims, 'iat' | 'exp'> & { iat: string; exp: string }) | null) => {
+            if (user) {
+              this.userStore.setUser(user);
+              return this.getPermissions().pipe(
+                tap((permissions: string[]) => {
+                  this.userStore.setPermissions(permissions);
+                }),
+              );
+            }
+            return of([]);
+          },
+        ),
       ),
     );
   }
@@ -81,15 +86,23 @@ export class Auth {
   }
 
   exchangeCodeForToken(code: string) {
-    const tokenEndpoint = ssoUrl + '/token';
     const redirectUri = origin + '/oauth-callback';
     const codeVerifier = sessionStorage.getItem('pkce_code_verifier') || '';
     const payload = {
+      client_id: clientId,
       grant_type: 'authorization_code',
       code: code,
       redirect_uri: redirectUri,
-      client_id: clientId,
       code_verifier: codeVerifier,
+    };
+
+    return this.http.post<ApiResponse>(tokenEndpoint, payload);
+  }
+
+  refreshToken() {
+    const payload = {
+      client_id: clientId,
+      grant_type: 'refresh',
     };
 
     return this.http.post<ApiResponse>(tokenEndpoint, payload);

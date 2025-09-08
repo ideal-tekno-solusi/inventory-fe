@@ -5,7 +5,8 @@ export interface ApiResponse<T = void> {
 }
 
 export interface JwtClaims {
-  exp: number | null;
+  iat: string | Date | null;
+  exp: string | Date | null;
   iss: string | null;
   sub: string | null;
 }
