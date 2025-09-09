@@ -27,6 +27,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.SSH_PASS }}
+          use-cache: true
           script: |
             docker exec inventory-fe sh -c "
               cd /app &&
