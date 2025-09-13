@@ -1,2 +1,4 @@
-<h2>Inventory Management</h2>
-<p>Welcome back {{ user() }}!</p>
+<ng-container *transloco="let t">
+  <h2>Inventory Management</h2>
+  <p>{{ t('dashboard.titles.welcome', { name: user() }) }}</p>
+</ng-container>
