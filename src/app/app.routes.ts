@@ -14,7 +14,7 @@ export const routes: Routes = [
         redirectTo: 'dashboard',
       },
       {
-        title: 'Dashboard | IMaS',
+        title: 'Dashboard',
         path: 'dashboard',
         loadComponent: () => import('@feature/dashboard/dashboard').then((c) => c.Dashboard),
       },
@@ -22,7 +22,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    title: 'Page Not Found | IMaS',
+    title: 'Page Not Found',
     loadComponent: () => import('@feature/error/not-found/not-found').then((c) => c.NotFound),
   },
 ];
