@@ -12,6 +12,9 @@ import { TranslocoHttpLoader } from './core/i18n/transloco-loader';
 import { jwtInterceptor } from './core/interceptors/jwt-interceptor';
 import { withCredentialsInterceptor } from './core/interceptors/with-credentials-interceptor';
 import { PageTitleStrategy } from '@app/core/strategies/page-title.strategy';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { providePrimeNG } from 'primeng/config';
+import { AppPreset } from '@app/core/themes/presets/app.preset';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -28,6 +31,15 @@ export const appConfig: ApplicationConfig = {
         prodMode: !isDevMode(),
       },
       loader: TranslocoHttpLoader,
+    }),
+    provideAnimationsAsync(),
+    providePrimeNG({
+      theme: {
+        preset: AppPreset,
+        options: {
+          darkModeSelector: '.dark-mode',
+        },
+      },
     }),
   ],
 };

@@ -1,4 +1,7 @@
 @import 'tailwindcss';
+@import "primeicons/primeicons.css";
+
+@plugin "tailwindcss-primeui";
 
 @keyframes fadeOut {
   0%,
