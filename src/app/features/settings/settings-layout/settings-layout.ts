@@ -4,8 +4,5 @@ import { Component } from '@angular/core';
   selector: 'app-settings-layout',
   imports: [],
   templateUrl: './settings-layout.html',
-  styleUrl: './settings-layout.scss'
 })
-export class SettingsLayout {
-
-}
+export class SettingsLayout {}

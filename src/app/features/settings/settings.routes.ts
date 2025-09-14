@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
+import { provideTranslocoScope } from '@jsverse/transloco';
 
 export const settingsRoutes: Routes = [
   {
     title: 'Settings',
     path: '',
-    loadComponent: () => import('./settings-list/settings-list').then((m) => m.SettingsList),
+    providers: [provideTranslocoScope('settings')],
+    loadComponent: () => import('./settings-home/settings-home').then((m) => m.SettingsHome),
   },
   {
     path: '',

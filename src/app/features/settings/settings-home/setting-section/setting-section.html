@@ -1,0 +1,16 @@
+<ng-container *transloco="let t">
+  <section>
+    <header>
+      <h2>{{ t(`settings.${name()}`) }}</h2>
+    </header>
+    <main class="grid grid-cols-4">
+      @for (child of children(); track child) {
+        <div class="bg-white">
+          @for (group of child; track group) {
+            <app-setting-group [name]="group.name" [children]="group.children || []" />
+          }
+        </div>
+      }
+    </main>
+  </section>
+</ng-container>

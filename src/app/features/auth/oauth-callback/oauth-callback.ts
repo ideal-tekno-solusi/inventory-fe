@@ -8,7 +8,6 @@ import { AppInit } from '@app/core/services/app-init';
   selector: 'app-oauth-callback',
   imports: [RouterModule],
   templateUrl: './oauth-callback.html',
-  styleUrl: './oauth-callback.scss',
 })
 export class OauthCallback implements OnInit {
   private readonly route = inject(ActivatedRoute);

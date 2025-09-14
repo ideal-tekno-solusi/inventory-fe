@@ -1,0 +1,10 @@
+<ng-container *transloco="let t">
+  <header>
+    <h3>{{ t(`settings.${name()}`) }}</h3>
+  </header>
+  <main>
+    @for (child of children(); track child) {
+      <app-setting-item [name]="child.name" [url]="child.url" [children]="child.children || []" />
+    }
+  </main>
+</ng-container>

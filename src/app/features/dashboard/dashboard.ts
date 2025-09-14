@@ -7,13 +7,12 @@ import { ButtonModule } from 'primeng/button';
   selector: 'app-dashboard',
   imports: [TranslocoModule, ButtonModule],
   templateUrl: './dashboard.html',
-  styleUrl: './dashboard.scss',
 })
 export class Dashboard {
   private readonly userStore = inject(UserStore);
   protected user = computed(() => this.userStore.claims().sub);
 
   toggleMode() {
-    document.querySelector('html')!.classList.toggle('dark-mode');
+    document.querySelector('html')!.classList.toggle('dark');
   }
 }

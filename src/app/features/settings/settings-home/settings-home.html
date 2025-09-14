@@ -1,0 +1,21 @@
+<header>
+  <div class="flex">
+    icon
+    <div class="flex items-center">
+      <h1>All Settings</h1>
+      <p>PT Jiwalu Kreasi Studio</p>
+    </div>
+  </div>
+
+  <search>
+    <input type="text" placeholder="Search settings..." />
+  </search>
+
+  <button>Close Settings</button>
+</header>
+
+<main>
+  @for (section of sections; track section) {
+    <app-setting-section [name]="section.name" [children]="section.children" />
+  }
+</main>

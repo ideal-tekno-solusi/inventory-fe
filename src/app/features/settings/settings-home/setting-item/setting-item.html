@@ -1,0 +1,24 @@
+<ng-container *transloco="let t">
+  @if (children().length > 0) {
+    <li>
+      <p>
+        {{ t(`settings.${name()}`) }}
+      </p>
+      <ul>
+        @for (child of children(); track child) {
+          <app-setting-item
+            [name]="child.name"
+            [url]="child.url"
+            [children]="child.children || []"
+          />
+        }
+      </ul>
+    </li>
+  } @else if (url()) {
+    <li>
+      <a [routerLink]="url()">{{ t(`settings.${name()}`) }}</a>
+    </li>
+  } @else {
+    <li>Error: SettingItem Component requires children or url!</li>
+  }
+</ng-container>
